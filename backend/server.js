@@ -2,15 +2,14 @@ import express from "express";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cors from "cors";
-import morgan from "morgan";
-//const morgan = require("morgan"); // logs requests
+import morgan from "morgan"; // logs requests
 import "dotenv/config";
 import main from "./controllers/main";
 
 var db = require("knex")({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
+    host: process.env.DB_HOST,
     user: "",
     password: "",
     database: "crud-practice-1"
@@ -33,4 +32,4 @@ app.delete("/crud", (req, res) => main.deleteTableData(req, res, db));
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => console.log("Example app listening on port ${PORT}"));
+app.listen(PORT, () => console.log(`MERN app listening on port ${PORT}`));
