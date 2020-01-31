@@ -32,4 +32,4 @@ app.delete("/crud", (req, res) => main.deleteTableData(req, res, db));
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => console.log(`MERN app listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`PERN app listening on port ${PORT}`));
