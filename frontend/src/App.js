@@ -21,7 +21,10 @@ function App() {
   };
 
   const updateState = item => {
-    const newArr = items.map(obj => (obj.id === 7 ? { ...obj, ...item } : obj));
+    console.log(item);
+    const newArr = items.map(obj =>
+      obj.id === item.id ? { ...obj, ...item } : obj
+    );
     setItems(newArr);
   };
 
@@ -54,7 +57,10 @@ function App() {
         <div>
           <ul>
             {items.map((item, idx) => (
-              <li key={idx}>{item.first}</li>
+              <>
+                <li key={idx}>{item.first}</li>
+                <button onClick={() => updateState(item)}>Update</button>
+              </>
             ))}
           </ul>
         </div>
