@@ -8,10 +8,22 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   /* useEffect(() => {
+    setIsLoading(true);
+    setIsError(false);
     Axios.get("http://localhost:3001/crud")
       .then(response => setItems(response.data))
-      .catch(err => console.log(err));
+      .then(setIsLoading(false))
+      .catch(err => setIsError(true));
   }, []); */
+
+  const addItemState = item => {
+    setItems([...items, item]);
+  };
+
+  const updateState = item => {
+    const newArr = items.map(obj => (obj.id === 7 ? { ...obj, ...item } : obj));
+    setItems(newArr);
+  };
 
   useEffect(() => {
     async function getItems() {
@@ -19,6 +31,7 @@ function App() {
       setIsLoading(true);
       try {
         const { data } = await Axios.get("http://localhost:3001/crud");
+        console.log(data);
         setItems(data);
       } catch (error) {
         setIsError(true);
@@ -26,7 +39,6 @@ function App() {
       setIsLoading(false);
     }
     getItems();
-    // setTimeout(getItems, 8000);
   }, []);
 
   return (
