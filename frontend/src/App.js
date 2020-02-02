@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import AddEditForm from "./components/AddEditForm";
+import { Container, Row, Col } from "reactstrap";
+import DataTable from "./components/DataTable";
 import Axios from "axios";
 import "./App.css";
 
 function App() {
   const [items, setItems] = useState([]);
-  const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  /* const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); */
 
   /* useEffect(() => {
     setIsLoading(true);
@@ -36,43 +37,32 @@ function App() {
 
   useEffect(() => {
     async function getItems() {
-      setIsError(false);
-      setIsLoading(true);
       try {
         const { data } = await Axios.get("http://localhost:3001/crud");
         console.log(data);
         setItems(data);
-      } catch (error) {
-        setIsError(true);
-      }
-      setIsLoading(false);
+      } catch (error) {}
     }
     getItems();
   }, []);
 
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-      {isError && <div>Something went wrong ...</div>}
-
-      {isLoading ? (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      ) : (
-        <div>
-          <ul>
-            {items.map((item, idx) => (
-              <>
-                <li key={idx}>{item.first}</li>
-                <button onClick={() => updateState(item)}>Update</button>
-              </>
-            ))}
-          </ul>
-        </div>
-      )}
-      <AddEditForm />
-    </div>
+    <Container className="App">
+      <Row>
+        <Col>
+          <h1 style={{ margin: "20px 0" }}>CRUD Database</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <DataTable
+            items={items}
+            updateState={updateState}
+            deleteItemFromState={deleteItemFromState}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

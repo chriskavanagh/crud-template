@@ -18,8 +18,16 @@ export default function AddEditForm(props) {
       [e.target.name]: e.target.value
     });
   };
+
+  const submitFormAdd = e => {
+    e.preventDefault();
+  };
+
+  const submitFormEdit = e => {
+    e.preventDefault();
+  };
   return (
-    <Form>
+    <Form onSubmit={props.item ? submitFormEdit : submitFormAdd}>
       <FormGroup>
         <Label for="first">First Name</Label>
         <Input
