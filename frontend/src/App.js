@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AddEditForm from "./components/AddEditForm";
 import Axios from "axios";
 import "./App.css";
 
@@ -26,6 +27,11 @@ function App() {
       obj.id === item.id ? { ...obj, ...item } : obj
     );
     setItems(newArr);
+  };
+
+  const deleteItemFromState = id => {
+    const updatedItems = this.state.items.filter(item => item.id !== id);
+    setItems(updatedItems);
   };
 
   useEffect(() => {
@@ -65,6 +71,7 @@ function App() {
           </ul>
         </div>
       )}
+      <AddEditForm />
     </div>
   );
 }
