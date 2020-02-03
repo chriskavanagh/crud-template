@@ -34,7 +34,7 @@ export default function ModalForm(props) {
       <Button
         color="success"
         onClick={toggle}
-        style={{ float: "left", marginRight: "10px" }}
+        style={{ float: "left", marginRight: "10px", marginBottom: "30px" }}
       >
         {label}
       </Button>

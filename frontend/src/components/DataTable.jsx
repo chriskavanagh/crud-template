@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, Button } from "reactstrap";
 import ModalForm from "./ModalForm";
+import axios from "axios";
 
 export default function DataTable(props) {
+  const deleteItem = async id => {
+    let confirmDelete = window.confirm("Delete item forever?");
+
+    if (confirmDelete) {
+      try {
+        await axios.delete("http://localhost:3001/crud", {
+          data: { id: JSON.stringify(id) }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      props.deleteItemFromState(id);
+    }
+  };
+
   const items = props.items.map(item => {
     return (
       <tr key={item.id}>
@@ -14,14 +30,14 @@ export default function DataTable(props) {
         <td>{item.location}</td>
         <td>{item.hobby}</td>
         <td>
-          <div style={{ width: "110px" }}>
+          <div style={{ width: "135px" }}>
             <ModalForm
               buttonLabel="Edit"
               item={item}
               updateState={props.updateState}
             />{" "}
-            <Button color="danger" onClick={() => props.deleteItem(item.id)}>
-              Del
+            <Button color="danger" onClick={() => deleteItem(item.id)}>
+              Delete
             </Button>
           </div>
         </td>

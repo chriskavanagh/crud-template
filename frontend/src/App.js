@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
 import DataTable from "./components/DataTable";
+import ModalForm from "./components/ModalForm";
 import Axios from "axios";
 import "./App.css";
 
@@ -31,7 +32,7 @@ function App() {
   };
 
   const deleteItemFromState = id => {
-    const updatedItems = this.state.items.filter(item => item.id !== id);
+    const updatedItems = items.filter(item => item.id !== id);
     setItems(updatedItems);
   };
 
@@ -60,6 +61,11 @@ function App() {
             updateState={updateState}
             deleteItemFromState={deleteItemFromState}
           />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <ModalForm buttonLabel="Add Item" addItemToState={addItemState} />
         </Col>
       </Row>
     </Container>
