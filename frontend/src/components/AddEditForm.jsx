@@ -39,6 +39,7 @@ export default function AddEditForm(props) {
           headers: { "Content-Type": "application/json" }
         }
       );
+      // create newEmployee with pk/id retruned from Postgres, "data[0]id"
       const newEmployee = {
         id: data[0].id,
         first: first,
@@ -48,6 +49,7 @@ export default function AddEditForm(props) {
         location: location,
         hobby: hobby
       };
+      // add newEmployee to state
       props.addItemToState(newEmployee);
     } catch (e) {
       console.log(e);
