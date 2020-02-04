@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 export default function AddEditForm(props) {
@@ -19,8 +20,38 @@ export default function AddEditForm(props) {
     });
   };
 
-  const submitFormAdd = e => {
+  const submitFormAdd = async e => {
     e.preventDefault();
+    const { first, last, email, phone, location, hobby } = form;
+    let employee = JSON.stringify({
+      first: first,
+      last: last,
+      email: email,
+      phone: phone,
+      location: location,
+      hobby: hobby
+    });
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/crud",
+        employee,
+        {
+          headers: { "Content-Type": "application/json" }
+        }
+      );
+      const newEmployee = {
+        id: data[0].id,
+        first: first,
+        last: last,
+        email: email,
+        phone: phone,
+        location: location,
+        hobby: hobby
+      };
+      props.addItemToState(newEmployee);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const submitFormEdit = e => {

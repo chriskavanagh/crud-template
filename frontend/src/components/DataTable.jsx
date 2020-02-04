@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Table, Button } from "reactstrap";
 import ModalForm from "./ModalForm";
+import uuid from "react-uuid";
 import axios from "axios";
 
 export default function DataTable(props) {
@@ -21,7 +22,7 @@ export default function DataTable(props) {
 
   const items = props.items.map(item => {
     return (
-      <tr key={item.id}>
+      <tr key={uuid()}>
         <th scope="row">{item.id}</th>
         <td>{item.first}</td>
         <td>{item.last}</td>
