@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
 import DataTable from "./components/DataTable";
 import ModalForm from "./components/ModalForm";
-import Axios from "axios";
+import { CSVLink } from "react-csv";
+import axios from "axios";
 import "./App.css";
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
   useEffect(() => {
     async function getItems() {
       try {
-        const { data } = await Axios.get("http://localhost:3001/crud");
+        const { data } = await axios.get("http://localhost:3001/crud");
         console.log(data);
         setItems(data);
       } catch (error) {}
@@ -51,7 +52,7 @@ function App() {
     <Container className="App">
       <Row>
         <Col>
-          <h1 style={{ margin: "20px 0" }}>CRUD Database</h1>
+          <h1 style={{ margin: "20px 0" }}>React-Postgres CRUD Database</h1>
         </Col>
       </Row>
       <Row>
@@ -63,8 +64,18 @@ function App() {
           />
         </Col>
       </Row>
+
       <Row>
         <Col>
+          <CSVLink
+            filename={"db.csv"}
+            color="primary"
+            style={{ float: "left", marginRight: "10px" }}
+            className="btn btn-primary"
+            data={items}
+          >
+            Download CSV
+          </CSVLink>
           <ModalForm buttonLabel="Add Item" addItemToState={addItemState} />
         </Col>
       </Row>

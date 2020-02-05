@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
@@ -54,11 +54,50 @@ export default function AddEditForm(props) {
     } catch (e) {
       console.log(e);
     }
+    //props.history.push("/");
   };
 
-  const submitFormEdit = e => {
+  const submitFormEdit = async e => {
     e.preventDefault();
+
+    const { id, first, last, email, phone, location, hobby } = form;
+    let employee = JSON.stringify({
+      id: id,
+      first: first,
+      last: last,
+      email: email,
+      phone: phone,
+      location: location,
+      hobby: hobby
+    });
+    try {
+      const { data } = await axios.put("http://localhost:3001/crud", employee, {
+        headers: { "Content-Type": "application/json" }
+      });
+
+      const newEmployee = {
+        id: data[0].id,
+        first: first,
+        last: last,
+        email: email,
+        phone: phone,
+        location: location,
+        hobby: hobby
+      };
+      // add newEmployee to state
+      props.updateState(newEmployee);
+    } catch (e) {
+      console.log(e);
+    }
+    //props.history.push("/");
   };
+
+  useEffect(() => {
+    if (props.item) {
+      const { id, first, last, email, phone, location, hobby } = props.item;
+      setForm({ id, first, last, email, phone, location, hobby });
+    }
+  }, [props.item]);
   return (
     <Form onSubmit={props.item ? submitFormEdit : submitFormAdd}>
       <FormGroup>
