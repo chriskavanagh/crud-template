@@ -54,7 +54,6 @@ export default function AddEditForm(props) {
     } catch (e) {
       console.log(e);
     }
-    //props.history.push("/");
   };
 
   const submitFormEdit = async e => {

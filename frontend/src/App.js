@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { Container, Row, Col } from "reactstrap";
 import DataTable from "./components/DataTable";
 import ModalForm from "./components/ModalForm";
@@ -6,6 +8,7 @@ import { CSVLink } from "react-csv";
 import axios from "axios";
 import "./App.css";
 
+toast.configure();
 function App() {
   const [items, setItems] = useState([]);
   /* const [isError, setIsError] = useState(false);
@@ -14,7 +17,7 @@ function App() {
   /* useEffect(() => {
     setIsLoading(true);
     setIsError(false);
-    Axios.get("http://localhost:3001/crud")
+    axios.get("http://localhost:3001/crud")
       .then(response => setItems(response.data))
       .then(setIsLoading(false))
       .catch(err => setIsError(true));
@@ -52,7 +55,7 @@ function App() {
     <Container className="App">
       <Row>
         <Col>
-          <h1 style={{ margin: "20px 0" }}>React-Postgres CRUD Database</h1>
+          <h1 style={{ margin: "50px 0" }}>React-Postgres CRUD Database</h1>
         </Col>
       </Row>
       <Row>

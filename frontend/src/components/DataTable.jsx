@@ -1,14 +1,18 @@
 import React from "react";
-import { Table, Button } from "reactstrap";
-import ModalForm from "./ModalForm";
-import uuid from "react-uuid";
 import axios from "axios";
+import uuid from "react-uuid";
+import ModalForm from "./ModalForm";
+import { Table, Button } from "reactstrap";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function DataTable(props) {
   const deleteItem = async id => {
     let confirmDelete = window.confirm("Delete item forever?");
 
     if (confirmDelete) {
+      const notify = () => toast.warn("You Deleted The Item!");
+      notify();
       try {
         await axios.delete("http://localhost:3001/crud", {
           data: { id: JSON.stringify(id) }
